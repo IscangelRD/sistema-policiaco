@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Policiaco | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-card">
+
+        <div class="logo-container">
+            <img src="../assets/logo.png" alt="Logo Sistema">
+        </div>
+        <div class="system-tag">
+            LAW ENFORCEMENT DATABASE
+        </div>
+        <h1>Sistema Policiaco</h1>
+        <p>Control interno del servidor</p>
+
+        <form id="formLogin">
+            <label>Usuario</label>
+            <div class="input-group">
+                <i class="bi bi-person-badge-fill"></i>
+                <input type="text" id="usuario" placeholder="Ingrese su usuario">
+            </div>
+
+            <label>Contraseña</label>
+            <div class="input-group">
+                <i class="bi bi-shield-lock-fill"></i>
+
+                <input type="password" id="password" placeholder="Ingrese su contraseña">
+
+                <button type="button" id="togglePassword" class="toggle-password">
+
+                    <i class="bi bi-eye-fill"></i>
+
+                </button>
+            </div>
+
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <div id="mensajeLogin" class="mensaje"></div>
+
+        <div class="login-footer">
+            <p>Sistema de Control Interno v1.0.0</p>
+            <p>Desarrollado por StudioKitty</p>
+            <p>© 2026 StudioKitty. <br> Todos los derechos reservados.</p>
+        </div>
+
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+
+</html>
