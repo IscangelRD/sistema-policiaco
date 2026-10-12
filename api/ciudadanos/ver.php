@@ -52,7 +52,6 @@ try {
             false,
             "El ciudadano no fue encontrado"
         );
-
     }
 
 
@@ -62,39 +61,40 @@ try {
      * ===============================
      */
 
-    $infracciones = [];
+    $stmtInfracciones = $pdo->prepare("
+    SELECT
+        i.id,
+        i.folio,
+        i.motivo,
+        i.descripcion,
+        i.estado,
+       i.fecha_registro AS fecha,
 
-    try {
+        p.nombre_completo AS personal_nombre,
 
-        $stmtInfracciones = $pdo->prepare("
-            SELECT *
-            FROM infracciones
-            WHERE ciudadano_id = ?
-            ORDER BY id DESC
-        ");
+        c.nombre AS corporacion
 
-        $stmtInfracciones->execute([$id]);
+    FROM infracciones i
 
-        $infracciones =
-            $stmtInfracciones->fetchAll(
-                PDO::FETCH_ASSOC
-            );
+    LEFT JOIN personal p
+        ON p.id = i.personal_id
 
-    } catch (PDOException $e) {
+    LEFT JOIN corporaciones c
+        ON c.id = p.corporacion_id
 
-        /*
-         * Por ahora no bloqueamos
-         * el expediente completo.
-         */
+    WHERE i.ciudadano_id = ?
 
-        $infracciones = [];
+    ORDER BY i.id DESC
+");
 
-        error_log(
-            "Error consultando infracciones: " .
-            $e->getMessage()
+    $stmtInfracciones->execute([
+        $id
+    ]);
+
+    $infracciones =
+        $stmtInfracciones->fetchAll(
+            PDO::FETCH_ASSOC
         );
-
-    }
 
 
     /*
@@ -111,13 +111,10 @@ try {
             "infracciones" => $infracciones
         ]
     );
-
-
 } catch (PDOException $e) {
 
     responder(
         false,
         "ERROR SQL: " . $e->getMessage()
     );
-
 }

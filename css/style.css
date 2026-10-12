@@ -1549,3 +1549,162 @@ body.modal-abierto {
     }
 
 }
+
+/* ============================================
+   FOTOGRAFÍA CIUDADANO
+============================================ */
+
+.acciones-fotografia {
+    margin-top: -10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.btn-cambiar-foto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: auto;
+
+    padding: 9px 13px;
+
+    color: #bfdbfe;
+
+    background: rgba(37, 99, 235, 0.15);
+
+    border: 1px solid rgba(96, 165, 250, 0.4);
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-cambiar-foto:hover {
+    color: #ffffff;
+
+    background: rgba(37, 99, 235, 0.3);
+
+    border-color: #60a5fa;
+}
+
+.btn-cambiar-foto:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.acciones-fotografia small {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #64748b;
+
+    font-size: 9px;
+}
+
+
+/* ============================================
+   ACCIONES EXPEDIENTE
+============================================ */
+
+.acciones-expediente {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 650px) {
+
+    .acciones-expediente {
+        width: 100%;
+    }
+
+    .acciones-expediente button {
+        width: 100%;
+    }
+
+}
+
+/* ============================================
+   INFRACCIONES DESDE EXPEDIENTE
+============================================ */
+
+.acciones-infracciones {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.aviso-ciudadano-infraccion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 20px;
+    padding: 14px;
+
+    background: rgba(37, 99, 235, 0.12);
+
+    border: 1px solid rgba(96, 165, 250, 0.3);
+
+    border-radius: 10px;
+}
+
+.aviso-ciudadano-infraccion > i {
+    font-size: 28px;
+    color: #60a5fa;
+}
+
+.aviso-ciudadano-infraccion span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+.aviso-ciudadano-infraccion strong {
+    display: block;
+
+    color: #f8fafc;
+}
+
+.aviso-ciudadano-infraccion small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #60a5fa;
+
+    font-family: Consolas, monospace;
+}
+
+@media (max-width: 650px) {
+
+    .acciones-infracciones {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .acciones-infracciones button {
+        width: 100%;
+    }
+
+    .acciones-infracciones .contador-infracciones {
+        align-self: flex-end;
+    }
+
+}

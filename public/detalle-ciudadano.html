@@ -5,22 +5,13 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Expediente Ciudadano</title>
 
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link
-        rel="stylesheet"
-        href="../css/style.css"
-    >
+    <link rel="stylesheet" href="../css/style.css">
 
 </head>
 
@@ -28,27 +19,17 @@
 
     <!-- BOTÓN MENÚ -->
 
-    <button
-        type="button"
-        class="menu-btn"
-        id="menuBtn"
-    >
+    <button type="button" class="menu-btn" id="menuBtn">
         <i class="bi bi-list"></i>
     </button>
 
 
-    <div
-        class="overlay"
-        id="overlay"
-    ></div>
+    <div class="overlay" id="overlay"></div>
 
 
     <!-- SIDEBAR -->
 
-    <aside
-        class="sidebar"
-        id="sidebar"
-    >
+    <aside class="sidebar" id="sidebar">
 
         <div class="sidebar-header">
 
@@ -78,10 +59,7 @@
             </a>
 
 
-            <a
-                href="ciudadanos.html"
-                class="activo-menu"
-            >
+            <a href="ciudadanos.html" class="activo-menu">
 
                 <i class="bi bi-person-vcard-fill"></i>
 
@@ -119,11 +97,7 @@
         </nav>
 
 
-        <button
-            type="button"
-            id="btnLogout"
-            class="btn-logout"
-        >
+        <button type="button" id="btnLogout" class="btn-logout">
 
             <i class="bi bi-box-arrow-right"></i>
 
@@ -145,10 +119,7 @@
 
             <div>
 
-                <a
-                    href="ciudadanos.html"
-                    class="volver-link"
-                >
+                <a href="ciudadanos.html" class="volver-link">
 
                     <i class="bi bi-arrow-left"></i>
 
@@ -180,6 +151,8 @@
             </div>
 
 
+
+
             <div class="usuario-box">
 
                 <i class="bi bi-person-circle"></i>
@@ -203,10 +176,7 @@
 
         <!-- CARGANDO -->
 
-        <div
-            id="pantallaCargaCiudadano"
-            class="panel detalle-cargando"
-        >
+        <div id="pantallaCargaCiudadano" class="panel detalle-cargando">
 
             <div class="spinner"></div>
 
@@ -219,11 +189,7 @@
 
         <!-- EXPEDIENTE -->
 
-        <div
-            id="contenidoExpediente"
-            class="detalle-grid"
-            hidden
-        >
+        <div id="contenidoExpediente" class="detalle-grid" hidden>
 
 
             <!-- COLUMNA IZQUIERDA -->
@@ -255,6 +221,17 @@
 
                     </div>
 
+                    <div id="accionesAdministrador" class="acciones-expediente">
+
+                        <button type="button" id="btnEditarCiudadano" class="btn-principal btn-auto">
+                            <i class="bi bi-pencil-square"></i>
+                            Editar ciudadano
+                        </button>
+
+                    </div>
+
+
+
 
                     <div class="datos-expediente">
 
@@ -278,10 +255,7 @@
                                 ID interno
                             </span>
 
-                            <strong
-                                id="detalleId"
-                                class="codigo-id"
-                            >
+                            <strong id="detalleId" class="codigo-id">
                                 -
                             </strong>
 
@@ -331,10 +305,7 @@
                                 Discord ID
                             </span>
 
-                            <strong
-                                id="detalleDiscordId"
-                                class="discord-id-expediente"
-                            >
+                            <strong id="detalleDiscordId" class="discord-id-expediente">
                                 -
                             </strong>
 
@@ -397,11 +368,17 @@
                         </div>
 
 
-                        <div
-                            class="contador-infracciones"
-                            id="contadorInfracciones"
-                        >
-                            0
+                        <div class="acciones-infracciones">
+
+                            <button type="button" id="btnNuevaInfraccion" class="btn-principal btn-auto">
+                                <i class="bi bi-plus-circle-fill"></i>
+                                Nueva infracción
+                            </button>
+
+                            <div class="contador-infracciones" id="contadorInfracciones">
+                                0
+                            </div>
+
                         </div>
 
                     </div>
@@ -458,22 +435,32 @@
 
                     <div class="id-foto">
 
-                        <img
-                            id="fotoCiudadano"
-                            src=""
-                            alt="Fotografía del ciudadano"
-                            hidden
-                        >
+                        <img id="fotoCiudadano" src="" alt="Fotografía del ciudadano" hidden>
 
 
-                        <div
-                            id="fotoPlaceholder"
-                            class="foto-placeholder"
-                        >
+                        <div id="fotoPlaceholder" class="foto-placeholder">
 
                             <i class="bi bi-person-fill"></i>
 
                         </div>
+
+                    </div>
+
+                    <div class="acciones-fotografia" id="accionesFotografia">
+
+                        <input type="file" id="inputFotografia" accept="image/jpeg,image/png,image/webp" hidden>
+
+                        <button type="button" id="btnCambiarFoto" class="btn-cambiar-foto">
+
+                            <i class="bi bi-camera-fill"></i>
+
+                            Cambiar fotografía
+
+                        </button>
+
+                        <small>
+                            JPG, PNG o WEBP · Máximo 5 MB
+                        </small>
 
                     </div>
 
@@ -615,6 +602,346 @@
         </div>
 
     </main>
+
+    <div class="modal" id="modalEditarCiudadano">
+
+        <div class="modal-overlay" data-cerrar-edicion></div>
+
+        <section class="modal-contenido" role="dialog" aria-modal="true">
+
+            <header class="modal-header">
+
+                <div>
+
+                    <span class="seccion-etiqueta">
+                        Administración
+                    </span>
+
+                    <h2>
+                        Editar ciudadano
+                    </h2>
+
+                </div>
+
+                <button type="button" class="modal-cerrar" data-cerrar-edicion>
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+            </header>
+
+            <form id="formEditarCiudadano">
+
+                <div class="form-grid">
+
+                    <div class="form-group form-columna-completa">
+
+                        <label for="editarNombre">
+                            Nombre completo RP
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-person-fill"></i>
+
+                            <input type="text" id="editarNombre" maxlength="150" required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editarDiscordUsuario">
+                            Usuario de Discord
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-discord"></i>
+
+                            <input type="text" id="editarDiscordUsuario" maxlength="100" required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editarDiscordId">
+                            Discord ID
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-hash"></i>
+
+                            <input type="text" id="editarDiscordId" maxlength="30" inputmode="numeric"
+                                placeholder="Opcional">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editarNacimiento">
+                            Fecha de nacimiento RP
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-calendar3"></i>
+
+                            <input type="date" id="editarNacimiento">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="editarEstado">
+                            Estado
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-activity"></i>
+
+                            <select id="editarEstado" required>
+
+                                <option value="Activo">
+                                    Activo
+                                </option>
+
+                                <option value="Suspendido">
+                                    Suspendido
+                                </option>
+
+                                <option value="Investigado">
+                                    Investigado
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group form-columna-completa">
+
+                        <label for="editarObservaciones">
+                            Observaciones internas
+                        </label>
+
+                        <textarea id="editarObservaciones" rows="5" maxlength="1000"></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div id="mensajeEditarCiudadano" class="mensaje-formulario"></div>
+
+
+                <footer class="modal-footer">
+
+                    <button type="button" class="btn-secundario btn-auto" data-cerrar-edicion>
+
+                        <i class="bi bi-x-circle"></i>
+                        Cancelar
+
+                    </button>
+
+
+                    <button type="submit" id="btnGuardarEdicion" class="btn-principal btn-auto">
+
+                        <i class="bi bi-floppy-fill"></i>
+                        Guardar cambios
+
+                    </button>
+
+                </footer>
+
+            </form>
+
+        </section>
+
+    </div>
+
+    <div class="modal" id="modalInfraccion">
+
+        <div class="modal-overlay" data-cerrar-infraccion></div>
+
+        <section class="modal-contenido" role="dialog" aria-modal="true">
+
+            <header class="modal-header">
+
+                <div>
+
+                    <span class="seccion-etiqueta">
+                        Registro interno
+                    </span>
+
+                    <h2>
+                        Nueva infracción
+                    </h2>
+
+                </div>
+
+                <button type="button" class="modal-cerrar" data-cerrar-infraccion>
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+            </header>
+
+
+            <form id="formInfraccion">
+
+                <div class="aviso-ciudadano-infraccion">
+
+                    <i class="bi bi-person-vcard-fill"></i>
+
+                    <div>
+
+                        <span>
+                            Ciudadano
+                        </span>
+
+                        <strong id="infraccionCiudadanoNombre">
+                            -
+                        </strong>
+
+                        <small id="infraccionCiudadanoCodigo">
+                            -
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group form-columna-completa">
+
+                        <label for="infraccionPersonal">
+                            Personal responsable
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-shield-fill-check"></i>
+
+                            <select id="infraccionPersonal" required>
+
+                                <option value="">
+                                    Cargando personal...
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group form-columna-completa">
+
+                        <label for="infraccionMotivo">
+                            Motivo
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+
+                            <input type="text" id="infraccionMotivo" maxlength="180"
+                                placeholder="Ej. Conducción peligrosa" required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="infraccionEstado">
+                            Estado
+                        </label>
+
+                        <div class="input-icon">
+
+                            <i class="bi bi-activity"></i>
+
+                            <select id="infraccionEstado" required>
+
+                                <option value="Activa">
+                                    Activa
+                                </option>
+
+                                <option value="Archivada">
+                                    Archivada
+                                </option>
+
+                                <option value="Cancelada">
+                                    Cancelada
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group form-columna-completa">
+
+                        <label for="infraccionDescripcion">
+                            Descripción
+                        </label>
+
+                        <textarea id="infraccionDescripcion" rows="5" maxlength="2000"
+                            placeholder="Describe los hechos..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div id="mensajeInfraccion" class="mensaje-formulario"></div>
+
+
+                <footer class="modal-footer">
+
+                    <button type="button" class="btn-secundario btn-auto" data-cerrar-infraccion>
+
+                        <i class="bi bi-x-circle"></i>
+                        Cancelar
+
+                    </button>
+
+
+                    <button type="submit" id="btnGuardarInfraccion" class="btn-principal btn-auto">
+
+                        <i class="bi bi-floppy-fill"></i>
+                        Registrar infracción
+
+                    </button>
+
+                </footer>
+
+            </form>
+
+        </section>
+
+    </div>
 
 
     <script src="../js/detalle-ciudadano.js"></script>

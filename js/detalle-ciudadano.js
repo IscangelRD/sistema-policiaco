@@ -26,6 +26,98 @@ document.addEventListener("DOMContentLoaded", () => {
     const contenidoExpediente =
         document.getElementById("contenidoExpediente");
 
+    const inputFotografia =
+        document.getElementById(
+            "inputFotografia"
+        );
+
+    const btnCambiarFoto =
+        document.getElementById(
+            "btnCambiarFoto"
+        );
+
+    const accionesFotografia =
+        document.getElementById(
+            "accionesFotografia"
+        );
+
+    const accionesAdministrador =
+        document.getElementById(
+            "accionesAdministrador"
+        );
+
+    const btnEditarCiudadano =
+        document.getElementById(
+            "btnEditarCiudadano"
+        );
+
+    const modalEditarCiudadano =
+        document.getElementById(
+            "modalEditarCiudadano"
+        );
+
+    const formEditarCiudadano =
+        document.getElementById(
+            "formEditarCiudadano"
+        );
+
+    const btnGuardarEdicion =
+        document.getElementById(
+            "btnGuardarEdicion"
+        );
+
+    const mensajeEditarCiudadano =
+        document.getElementById(
+            "mensajeEditarCiudadano"
+        );
+    const btnNuevaInfraccion =
+        document.getElementById(
+            "btnNuevaInfraccion"
+        );
+
+    const modalInfraccion =
+        document.getElementById(
+            "modalInfraccion"
+        );
+
+    const formInfraccion =
+        document.getElementById(
+            "formInfraccion"
+        );
+
+    const infraccionPersonal =
+        document.getElementById(
+            "infraccionPersonal"
+        );
+
+    const infraccionMotivo =
+        document.getElementById(
+            "infraccionMotivo"
+        );
+
+    const infraccionEstado =
+        document.getElementById(
+            "infraccionEstado"
+        );
+
+    const infraccionDescripcion =
+        document.getElementById(
+            "infraccionDescripcion"
+        );
+
+    const btnGuardarInfraccion =
+        document.getElementById(
+            "btnGuardarInfraccion"
+        );
+
+    const mensajeInfraccion =
+        document.getElementById(
+            "mensajeInfraccion"
+        );
+
+    let ciudadanoActual = null;
+    let rolActual = null;
+
 
     function abrirMenu() {
 
@@ -99,7 +191,27 @@ document.addEventListener("DOMContentLoaded", () => {
             rolUsuario.textContent =
                 data.data.rol;
 
+            rolActual = data.data.rol;
+
+            if (
+                rolActual !== "Administrador" &&
+                accionesAdministrador
+            ) {
+                accionesAdministrador.style.display =
+                    "none";
+            }
+
+            if (
+                rolActual !== "Administrador" &&
+                accionesFotografia
+            ) {
+                accionesFotografia.style.display =
+                    "none";
+            }
+
             return true;
+
+
 
         } catch {
 
@@ -193,6 +305,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function renderizarCiudadano(ciudadano) {
+
+        ciudadanoActual = ciudadano;
 
         document.title =
             `${ciudadano.id_ciudadano} | Expediente`;
@@ -434,8 +548,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             <strong>
                                 ${escaparHTML(
-                                    infraccion.folio
-                                )}
+                    infraccion.folio
+                )}
                             </strong>
 
                         </div>
@@ -449,20 +563,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             <strong>
                                 ${escaparHTML(
-                                    infraccion.motivo
-                                )}
+                    infraccion.motivo
+                )}
+                <p style="margin-top:7px;">
+
+    <i class="bi bi-shield-fill-check"></i>
+
+    ${escaparHTML(
+                    infraccion.personal_nombre ||
+                    "Personal no disponible"
+                )
+                    }
+
+    ${infraccion.corporacion
+                        ? ` · ${escaparHTML(
+                            infraccion.corporacion
+                        )
+                        }`
+                        : ""
+                    }
+
+</p>
                             </strong>
 
                             <p>
                                 ${escaparHTML(
-                                    infraccion.descripcion ||
-                                    "Sin descripción."
-                                )}
+                        infraccion.descripcion ||
+                        "Sin descripción."
+                    )}
                             </p>
 
                             ${mostrarEstadoInfraccion(
-                                infraccion.estado
-                            )}
+                        infraccion.estado
+                    )}
 
                         </div>
 
@@ -475,8 +608,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             <strong>
                                 ${formatearFecha(
-                                    infraccion.fecha
-                                )}
+                        infraccion.fecha
+                    )}
                             </strong>
 
                         </div>
@@ -629,6 +762,809 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    function abrirEditorCiudadano() {
+
+        if (
+            rolActual !== "Administrador" ||
+            !ciudadanoActual
+        ) {
+            return;
+        }
+
+        document.getElementById(
+            "editarNombre"
+        ).value =
+            ciudadanoActual.nombre_completo || "";
+
+
+        document.getElementById(
+            "editarDiscordUsuario"
+        ).value =
+            ciudadanoActual.nombre_discord || "";
+
+
+        document.getElementById(
+            "editarDiscordId"
+        ).value =
+            ciudadanoActual.discord_id || "";
+
+
+        document.getElementById(
+            "editarNacimiento"
+        ).value =
+            ciudadanoActual.fecha_nacimiento
+                ? String(
+                    ciudadanoActual.fecha_nacimiento
+                ).substring(0, 10)
+                : "";
+
+
+        document.getElementById(
+            "editarEstado"
+        ).value =
+            ciudadanoActual.estado || "Activo";
+
+
+        document.getElementById(
+            "editarObservaciones"
+        ).value =
+            ciudadanoActual.observaciones || "";
+
+
+        limpiarMensajeEdicion();
+
+        modalEditarCiudadano.classList.add(
+            "activo"
+        );
+
+        document.body.classList.add(
+            "modal-abierto"
+        );
+    }
+
+
+    function cerrarEditorCiudadano() {
+
+        modalEditarCiudadano.classList.remove(
+            "activo"
+        );
+
+        document.body.classList.remove(
+            "modal-abierto"
+        );
+
+        limpiarMensajeEdicion();
+
+    }
+
+
+    function mostrarMensajeEdicion(
+        tipo,
+        mensaje
+    ) {
+
+        mensajeEditarCiudadano.className =
+            `mensaje-formulario visible ${tipo}`;
+
+        mensajeEditarCiudadano.textContent =
+            mensaje;
+
+    }
+
+
+    function limpiarMensajeEdicion() {
+
+        mensajeEditarCiudadano.className =
+            "mensaje-formulario";
+
+        mensajeEditarCiudadano.textContent =
+            "";
+
+    }
+
+    btnEditarCiudadano?.addEventListener(
+        "click",
+        abrirEditorCiudadano
+    );
+
+
+    document
+        .querySelectorAll(
+            "[data-cerrar-edicion]"
+        )
+        .forEach(elemento => {
+
+            elemento.addEventListener(
+                "click",
+                cerrarEditorCiudadano
+            );
+
+        });
+
+
+    formEditarCiudadano?.addEventListener(
+        "submit",
+        async evento => {
+
+            evento.preventDefault();
+
+            if (
+                rolActual !== "Administrador" ||
+                !ciudadanoActual
+            ) {
+                return;
+            }
+
+            limpiarMensajeEdicion();
+
+
+            const datos = {
+
+                id:
+                    ciudadanoActual.id,
+
+                nombre_completo:
+                    document
+                        .getElementById(
+                            "editarNombre"
+                        )
+                        .value
+                        .trim(),
+
+                nombre_discord:
+                    document
+                        .getElementById(
+                            "editarDiscordUsuario"
+                        )
+                        .value
+                        .trim(),
+
+                discord_id:
+                    document
+                        .getElementById(
+                            "editarDiscordId"
+                        )
+                        .value
+                        .trim(),
+
+                fecha_nacimiento:
+                    document
+                        .getElementById(
+                            "editarNacimiento"
+                        )
+                        .value,
+
+                estado:
+                    document
+                        .getElementById(
+                            "editarEstado"
+                        )
+                        .value,
+
+                observaciones:
+                    document
+                        .getElementById(
+                            "editarObservaciones"
+                        )
+                        .value
+                        .trim()
+
+            };
+
+
+            if (
+                datos.discord_id !== "" &&
+                !/^[0-9]{15,30}$/.test(
+                    datos.discord_id
+                )
+            ) {
+
+                mostrarMensajeEdicion(
+                    "error",
+                    "El Discord ID ingresado no es válido."
+                );
+
+                return;
+            }
+
+
+            btnGuardarEdicion.disabled = true;
+
+            btnGuardarEdicion.innerHTML = `
+            <span class="spinner"></span>
+            Guardando...
+        `;
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "../api/ciudadanos/actualizar.php",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    datos
+                                )
+                        }
+                    );
+
+
+                const data =
+                    await respuesta.json();
+
+
+                if (!data.ok) {
+
+                    throw new Error(
+                        data.mensaje ||
+                        "No fue posible guardar los cambios"
+                    );
+
+                }
+
+
+                mostrarMensajeEdicion(
+                    "exito",
+                    "Ciudadano actualizado correctamente."
+                );
+
+
+                /*
+                 * Volvemos a consultar el expediente
+                 * para reflejar los datos reales.
+                 */
+
+                await cargarExpediente();
+
+
+                setTimeout(() => {
+
+                    cerrarEditorCiudadano();
+
+                }, 800);
+
+
+            } catch (error) {
+
+                mostrarMensajeEdicion(
+                    "error",
+                    error.message
+                );
+
+
+            } finally {
+
+                btnGuardarEdicion.disabled =
+                    false;
+
+                btnGuardarEdicion.innerHTML = `
+                <i class="bi bi-floppy-fill"></i>
+                Guardar cambios
+            `;
+
+            }
+
+        }
+    );
+
+
+
+
+
+    btnCambiarFoto?.addEventListener(
+        "click",
+        () => {
+
+            if (
+                rolActual !==
+                "Administrador"
+            ) {
+                return;
+            }
+
+            inputFotografia.click();
+
+        }
+    );
+
+
+    inputFotografia?.addEventListener(
+        "change",
+        async () => {
+
+            const archivo =
+                inputFotografia.files[0];
+
+            if (!archivo) {
+                return;
+            }
+
+            if (!ciudadanoActual) {
+                alert(
+                    "No se ha cargado el ciudadano."
+                );
+
+                return;
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Validar tipo
+            |--------------------------------------------------------------------------
+            */
+
+            const tiposPermitidos = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+            if (
+                !tiposPermitidos.includes(
+                    archivo.type
+                )
+            ) {
+
+                alert(
+                    "Solo se permiten imágenes JPG, PNG o WEBP."
+                );
+
+                inputFotografia.value = "";
+
+                return;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Validar tamaño
+            |--------------------------------------------------------------------------
+            */
+
+            const maximo =
+                5 * 1024 * 1024;
+
+            if (archivo.size > maximo) {
+
+                alert(
+                    "La fotografía no puede superar los 5 MB."
+                );
+
+                inputFotografia.value = "";
+
+                return;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Preparar envío
+            |--------------------------------------------------------------------------
+            */
+
+            const formData =
+                new FormData();
+
+            formData.append(
+                "id",
+                ciudadanoActual.id
+            );
+
+            formData.append(
+                "fotografia",
+                archivo
+            );
+
+
+            btnCambiarFoto.disabled =
+                true;
+
+            btnCambiarFoto.innerHTML = `
+            <span class="spinner"></span>
+            Subiendo...
+        `;
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "../api/ciudadanos/subir_foto.php",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                const data =
+                    await respuesta.json();
+
+
+                if (!data.ok) {
+
+                    throw new Error(
+                        data.mensaje ||
+                        "No fue posible subir la fotografía"
+                    );
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Actualizar foto inmediatamente
+                |--------------------------------------------------------------------------
+                */
+
+                ciudadanoActual.fotografia =
+                    data.data.fotografia;
+
+
+                const foto =
+                    document.getElementById(
+                        "fotoCiudadano"
+                    );
+
+                const placeholder =
+                    document.getElementById(
+                        "fotoPlaceholder"
+                    );
+
+
+                foto.src =
+                    `../uploads/ciudadanos/${data.data.fotografia
+                    }?t=${Date.now()}`;
+
+
+                foto.hidden = false;
+
+                placeholder.hidden = true;
+
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+
+            } finally {
+
+                btnCambiarFoto.disabled =
+                    false;
+
+                btnCambiarFoto.innerHTML = `
+                <i class="bi bi-camera-fill"></i>
+                Cambiar fotografía
+            `;
+
+                inputFotografia.value = "";
+
+            }
+
+        }
+    );
+
+    async function cargarPersonalInfraccion() {
+
+        infraccionPersonal.innerHTML = `
+        <option value="">
+            Cargando personal...
+        </option>
+    `;
+
+        try {
+
+            const respuesta =
+                await fetch(
+                    "../api/personal/opciones.php"
+                );
+
+            const data =
+                await respuesta.json();
+
+            if (!data.ok) {
+
+                throw new Error(
+                    data.mensaje ||
+                    "No fue posible consultar el personal"
+                );
+
+            }
+
+            if (
+                !Array.isArray(data.data) ||
+                data.data.length === 0
+            ) {
+
+                infraccionPersonal.innerHTML = `
+                <option value="">
+                    No hay personal registrado
+                </option>
+            `;
+
+                return;
+
+            }
+
+            infraccionPersonal.innerHTML = `
+            <option value="">
+                Selecciona personal
+            </option>
+        `;
+
+            data.data.forEach(personal => {
+
+                const opcion =
+                    document.createElement(
+                        "option"
+                    );
+
+                opcion.value =
+                    personal.id;
+
+                opcion.textContent =
+                    personal.corporacion
+                        ? `${personal.nombre_completo} — ${personal.corporacion}`
+                        : personal.nombre_completo;
+
+                infraccionPersonal.appendChild(
+                    opcion
+                );
+
+            });
+
+        } catch (error) {
+
+            infraccionPersonal.innerHTML = `
+            <option value="">
+                Error al cargar personal
+            </option>
+        `;
+
+            console.error(error);
+
+        }
+
+    }
+
+    function abrirModalInfraccion() {
+
+        if (!ciudadanoActual) {
+            return;
+        }
+
+        formInfraccion.reset();
+
+        infraccionEstado.value =
+            "Activa";
+
+        mensajeInfraccion.className =
+            "mensaje-formulario";
+
+        mensajeInfraccion.textContent =
+            "";
+
+
+        document.getElementById(
+            "infraccionCiudadanoNombre"
+        ).textContent =
+            ciudadanoActual.nombre_completo;
+
+
+        document.getElementById(
+            "infraccionCiudadanoCodigo"
+        ).textContent =
+            ciudadanoActual.id_ciudadano;
+
+
+        modalInfraccion.classList.add(
+            "activo"
+        );
+
+        document.body.classList.add(
+            "modal-abierto"
+        );
+
+
+        cargarPersonalInfraccion();
+
+    }
+    function cerrarModalInfraccion() {
+
+        modalInfraccion.classList.remove(
+            "activo"
+        );
+
+        document.body.classList.remove(
+            "modal-abierto"
+        );
+
+    }
+
+    btnNuevaInfraccion?.addEventListener(
+        "click",
+        abrirModalInfraccion
+    );
+
+
+    document
+        .querySelectorAll(
+            "[data-cerrar-infraccion]"
+        )
+        .forEach(elemento => {
+
+            elemento.addEventListener(
+                "click",
+                cerrarModalInfraccion
+            );
+
+        });
+
+    formInfraccion?.addEventListener(
+        "submit",
+        async evento => {
+
+            evento.preventDefault();
+
+            if (!ciudadanoActual) {
+                return;
+            }
+
+
+            const datos = {
+
+                ciudadano_id:
+                    ciudadanoActual.id,
+
+                personal_id:
+                    infraccionPersonal.value,
+
+                motivo:
+                    infraccionMotivo
+                        .value
+                        .trim(),
+
+                descripcion:
+                    infraccionDescripcion
+                        .value
+                        .trim(),
+
+                estado:
+                    infraccionEstado.value
+
+            };
+
+
+            if (!datos.personal_id) {
+
+                mostrarMensajeInfraccion(
+                    "error",
+                    "Debes seleccionar al personal responsable."
+                );
+
+                return;
+            }
+
+
+            if (!datos.motivo) {
+
+                mostrarMensajeInfraccion(
+                    "error",
+                    "El motivo es obligatorio."
+                );
+
+                return;
+            }
+
+
+            btnGuardarInfraccion.disabled =
+                true;
+
+            btnGuardarInfraccion.innerHTML = `
+            <span class="spinner"></span>
+            Registrando...
+        `;
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "../api/infracciones/crear.php",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    datos
+                                )
+                        }
+                    );
+
+
+                const data =
+                    await respuesta.json();
+
+
+                if (!data.ok) {
+
+                    throw new Error(
+                        data.mensaje ||
+                        "No fue posible registrar la infracción"
+                    );
+
+                }
+
+
+                mostrarMensajeInfraccion(
+                    "exito",
+                    `Infracción ${data.data.folio} registrada correctamente.`
+                );
+
+
+                await cargarExpediente();
+
+
+                setTimeout(() => {
+
+                    cerrarModalInfraccion();
+
+                }, 900);
+
+
+            } catch (error) {
+
+                mostrarMensajeInfraccion(
+                    "error",
+                    error.message
+                );
+
+
+            } finally {
+
+                btnGuardarInfraccion.disabled =
+                    false;
+
+                btnGuardarInfraccion.innerHTML = `
+                <i class="bi bi-floppy-fill"></i>
+                Registrar infracción
+            `;
+
+            }
+
+        }
+    );
+
+
+    function mostrarMensajeInfraccion(
+        tipo,
+        mensaje
+    ) {
+
+        mensajeInfraccion.className =
+            `mensaje-formulario visible ${tipo}`;
+
+        mensajeInfraccion.textContent =
+            mensaje;
+
+    }
 
     async function iniciar() {
 
