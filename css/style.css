@@ -1708,3 +1708,264 @@ body.modal-abierto {
     }
 
 }
+
+
+/* ============================================
+   PERSONAL
+============================================ */
+
+.resumen-personal {
+    display: grid;
+    grid-template-columns: repeat(
+        4,
+        minmax(160px, 1fr)
+    );
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.toolbar-personal {
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 1fr)
+        200px
+        180px
+        auto;
+
+    gap: 12px;
+
+    align-items: center;
+
+    margin-top: 22px;
+}
+
+.personal-nombre strong {
+    display: block;
+
+    color: #f8fafc;
+}
+
+.personal-nombre span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+.personal-id {
+    color: #60a5fa;
+
+    font-family: Consolas, monospace;
+
+    font-weight: 700;
+}
+
+.corporacion-etiqueta {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #bfdbfe;
+}
+
+@media (max-width: 1050px) {
+
+    .resumen-personal {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .toolbar-personal {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .resumen-personal {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar-personal {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar-personal button {
+        width: 100%;
+    }
+
+}
+
+
+/* ============================================
+   CORREGIR SELECTS BLANCOS - PERSONAL
+============================================ */
+
+#filtroCorporacion,
+#filtroEstadoPersonal {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 100%;
+    height: 48px;
+
+    margin: 0 !important;
+
+    padding:
+        0
+        42px
+        0
+        15px !important;
+
+    color: #dbeafe !important;
+
+    background-color: #020617 !important;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+
+    background-position:
+        right 14px center;
+
+    background-size:
+        16px;
+
+    border:
+        1px solid #334155 !important;
+
+    border-radius:
+        10px !important;
+
+    outline: none;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    box-shadow: none !important;
+
+    transition: .2s ease;
+}
+
+
+#filtroCorporacion:hover,
+#filtroEstadoPersonal:hover {
+    border-color:
+        #475569 !important;
+
+    background-color:
+        #0f172a !important;
+}
+
+
+#filtroCorporacion:focus,
+#filtroEstadoPersonal:focus {
+    border-color:
+        #60a5fa !important;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(59, 130, 246, .12)
+        !important;
+}
+
+
+#filtroCorporacion option,
+#filtroEstadoPersonal option {
+    color: #e2e8f0 !important;
+
+    background:
+        #0f172a !important;
+}
+@media (max-width: 900px) {
+
+    .toolbar-personal {
+        grid-template-columns:
+            1fr
+            1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .toolbar-personal {
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+/* ============================================
+   LOGOS CORPORACIONES EN TABLA
+============================================ */
+
+.corporacion-personal {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-corporacion-tabla {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 36px;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 9px;
+
+    font-size: 17px;
+}
+
+.corp-policia {
+    color: #93c5fd;
+
+    background:
+        rgba(37, 99, 235, .18);
+
+    border:
+        1px solid
+        rgba(96, 165, 250, .35);
+}
+
+.corp-marina {
+    color: #67e8f9;
+
+    background:
+        rgba(8, 145, 178, .18);
+
+    border:
+        1px solid
+        rgba(34, 211, 238, .30);
+}
+
+.corp-gn {
+    color: #fde68a;
+
+    background:
+        rgba(161, 98, 7, .18);
+
+    border:
+        1px solid
+        rgba(234, 179, 8, .30);
+}
+
+.corporacion-personal span {
+    color: #dbeafe;
+    font-size: 13px;
+}

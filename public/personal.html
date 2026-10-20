@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Personal | Control Interno</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body>
+
+
+<button
+    type="button"
+    class="menu-btn"
+    id="menuBtn"
+>
+    <i class="bi bi-list"></i>
+</button>
+
+
+<div
+    class="overlay"
+    id="overlay"
+></div>
+
+
+<aside
+    class="sidebar"
+    id="sidebar"
+>
+
+    <div class="sidebar-header">
+
+        <i class="bi bi-shield-fill"></i>
+
+        <div>
+
+            <h2>FNPD</h2>
+
+            <span>
+                Control interno
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="dashboard.html">
+
+            <i class="bi bi-speedometer2"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="ciudadanos.html">
+
+            <i class="bi bi-person-vcard-fill"></i>
+
+            <span>
+                Ciudadanos
+            </span>
+
+        </a>
+
+
+        <a
+            href="personal.html"
+            class="activo-menu"
+        >
+
+            <i class="bi bi-shield-fill-check"></i>
+
+            <span>
+                Personal
+            </span>
+
+        </a>
+
+
+        <a href="infracciones.html">
+
+            <i class="bi bi-exclamation-triangle-fill"></i>
+
+            <span>
+                Infracciones
+            </span>
+
+        </a>
+
+
+        <a href="reportes.html">
+
+            <i class="bi bi-file-earmark-bar-graph-fill"></i>
+
+            <span>
+                Reportes
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <button
+        type="button"
+        id="btnLogout"
+        class="btn-logout"
+    >
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        Cerrar sesión
+
+    </button>
+
+</aside>
+
+
+<main class="contenido">
+
+
+    <header class="topbar">
+
+        <div>
+
+            <span class="seccion-etiqueta">
+                Fuerzas registradas
+            </span>
+
+            <h1>
+                Personal
+            </h1>
+
+            <p>
+                Policía, Marina y Guardia Nacional.
+            </p>
+
+        </div>
+
+
+        <div class="usuario-box">
+
+            <i class="bi bi-person-circle"></i>
+
+            <div>
+
+                <strong id="nombreUsuario">
+                    Usuario
+                </strong>
+
+                <span id="rolUsuario">
+                    Rol
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- RESUMEN -->
+
+    <section class="resumen-personal">
+
+
+        <article class="mini-card">
+
+            <div class="mini-card-icon">
+
+                <i class="bi bi-people-fill"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Total personal
+                </span>
+
+                <strong id="totalPersonal">
+                    0
+                </strong>
+
+            </div>
+
+        </article>
+
+
+        <article class="mini-card">
+
+            <div class="mini-card-icon">
+
+                <i class="bi bi-shield-fill"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Policia
+                </span>
+
+                <strong id="totalPolicia">
+                    0
+                </strong>
+
+            </div>
+
+        </article>
+
+
+        <article class="mini-card">
+
+            <div class="mini-card-icon">
+
+                <i class="bi bi-water"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Marina
+                </span>
+
+                <strong id="totalMarina">
+                    0
+                </strong>
+
+            </div>
+
+        </article>
+
+
+        <article class="mini-card">
+
+            <div class="mini-card-icon">
+
+                <i class="bi bi-star-fill"></i>
+
+            </div>
+
+            <div>
+
+                <span>
+                    Guardia Nacional
+                </span>
+
+                <strong id="totalGN">
+                    0
+                </strong>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- HERRAMIENTAS -->
+
+    <section class="toolbar-personal">
+
+        <div class="buscador-box">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="search"
+                id="buscarPersonal"
+                placeholder="Buscar nombre, ID, placa, rango o zona..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <select
+            id="filtroCorporacion"
+            class="select-filtro"
+        >
+
+            <option value="">
+                Todas las corporaciones
+            </option>
+
+        </select>
+
+
+        <select
+            id="filtroEstadoPersonal"
+            class="select-filtro"
+        >
+
+            <option value="">
+                Todos los estados
+            </option>
+
+            <option value="Activo">
+                Activos
+            </option>
+
+            <option value="Suspendido">
+                Suspendidos
+            </option>
+
+            <option value="Baja">
+                Baja
+            </option>
+
+        </select>
+
+
+        <button
+            type="button"
+            id="btnNuevoPersonal"
+            class="btn-principal btn-auto"
+        >
+
+            <i class="bi bi-person-plus-fill"></i>
+
+            Nuevo personal
+
+        </button>
+
+    </section>
+
+
+    <!-- LISTADO -->
+
+    <section class="panel tabla-panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+
+                    <i class="bi bi-shield-fill-check"></i>
+
+                    Registro de personal
+
+                </h2>
+
+                <p id="textoResultadosPersonal">
+
+                    Consultando registros...
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="tabla-responsive">
+
+            <table class="tabla-sistema">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Personal</th>
+
+                        <th>ID interno</th>
+
+                        <th>Corporación</th>
+
+                        <th>Rango</th>
+
+                        <th>Placa / Matrícula</th>
+
+                        <th>Zona</th>
+
+                        <th>Estado</th>
+
+                        <th>Acciones</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tablaPersonal">
+
+                    <tr>
+
+                        <td colspan="8">
+
+                            <div class="estado-tabla">
+
+                                <div class="spinner"></div>
+
+                                Cargando personal...
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL -->
+
+<div
+    class="modal"
+    id="modalPersonal"
+>
+
+    <div
+        class="modal-overlay"
+        data-cerrar-personal
+    ></div>
+
+
+    <section class="modal-contenido">
+
+
+        <header class="modal-header">
+
+            <div>
+
+                <span class="seccion-etiqueta">
+                    Alta administrativa
+                </span>
+
+                <h2>
+                    Registrar personal
+                </h2>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="modal-cerrar"
+                data-cerrar-personal
+            >
+
+                <i class="bi bi-x-lg"></i>
+
+            </button>
+
+        </header>
+
+
+        <form id="formPersonal">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="personalCorporacion">
+                        Corporación
+                    </label>
+
+                    <select
+                        id="personalCorporacion"
+                        required
+                    >
+
+                        <option value="">
+                            Seleccionar...
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="personalEstado">
+                        Estado
+                    </label>
+
+                    <select
+                        id="personalEstado"
+                        required
+                    >
+
+                        <option value="Activo">
+                            Activo
+                        </option>
+
+                        <option value="Suspendido">
+                            Suspendido
+                        </option>
+
+                        <option value="Baja">
+                            Baja
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group form-columna-completa">
+
+                    <label for="personalNombre">
+                        Nombre completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="personalNombre"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="personalRango">
+                        Rango
+                    </label>
+
+                    <input
+                        type="text"
+                        id="personalRango"
+                        maxlength="80"
+                        placeholder="Ej. Oficial"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="personalPlaca">
+                        Placa / matrícula
+                    </label>
+
+                    <input
+                        type="text"
+                        id="personalPlaca"
+                        maxlength="80"
+                    >
+
+                </div>
+
+
+                <div class="form-group form-columna-completa">
+
+                    <label for="personalZona">
+                        Zona asignada
+                    </label>
+
+                    <input
+                        type="text"
+                        id="personalZona"
+                        maxlength="120"
+                        placeholder="Ej. Zona Centro"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="mensajePersonal"
+                class="mensaje-formulario"
+            ></div>
+
+
+            <footer class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn-secundario btn-auto"
+                    data-cerrar-personal
+                >
+
+                    Cancelar
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="btnGuardarPersonal"
+                    class="btn-principal btn-auto"
+                >
+
+                    <i class="bi bi-floppy-fill"></i>
+
+                    Guardar personal
+
+                </button>
+
+            </footer>
+
+        </form>
+
+    </section>
+
+</div>
+
+
+<script src="../js/personal.js"></script>
+
+</body>
+
+</html>
